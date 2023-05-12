@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+
+    int checksumEven = 0;
+    int first, second, firstSecondSum, evenCalc;
+    int checksumOdd = 0;
+    int position = 1;
+    int checkSumTotal = 0;
+    char digit;
+    string card_number, authentic_card, space = " ";
+    cout << "Enter the card Number digit by digit: ";
+    while (position != 17)
+    {
+        cin >> digit;
+        string num = to_string(digit - '0');
+        card_number += num;
+        cout << "digit number: " << position << "\n";
+        if (position % 2 == 0)
+        {
+            if (digit - '0' > 4)
+            {
+                evenCalc = (digit - '0') * 2;
+                first = evenCalc / 10;
+                second = evenCalc % 10;
+                firstSecondSum = first + second;
+                checksumEven = checksumEven + firstSecondSum;
+            } else
+            {
+                checksumEven = checksumEven + ((digit - '0') * 2);
+            }
+        } else
+        {
+            checksumOdd = checksumOdd + (digit - '0');
+        }
+        cout << "ChecksumEven " << checksumEven << "\n";
+        cout << "ChecksumOdd " << checksumOdd << "\n";
+        position ++;
+    }
+    checkSumTotal = checksumEven + checksumOdd;
+    if (checkSumTotal % 10 == 0 )
+    {
+        cout << "The Credit Card is Valid \n";
+    }
+    else
+    {
+        cout << "The Credit Card is Not Valid\n";
+    }
+    reverse(card_number.begin(), card_number.end());
+
+    for(int i = 0; i <= card_number.length(); i++)
+    {
+        if (i % 4 == 0 and i != 0)
+        {
+            authentic_card += (space+ card_number[i]);
+        }
+        else
+        {
+           authentic_card += card_number[i];
+        }
+
+    }
+    cout << "As Displayed Card Number " << authentic_card;
+    return 0;
+}
